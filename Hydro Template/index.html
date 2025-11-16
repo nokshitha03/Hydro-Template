@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydro-Landing page template</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=schedule" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="shortcut icon" href="https://pbs.twimg.com/profile_images/1895004459413184514/0BzSJRCk_200x200.jpg" type="image/x-icon">
+
+    <!-- ===== responsive CSS (keeps your original structure & shapes) ===== -->
+    <style>
+        /* Basic reset & box sizing */
+        *, *::before, *::after { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            margin: 0;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color: #000;
+            background: #fff;
+            /* Give space for fixed header so content isn't hidden under it */
+            padding-top: 78px; /* if you change header height, update this */
+        }
+
+        /* ========== HEADER & NAV ========== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            /* Slight translucent background so header is readable on hero */
+            background: rgba(255,255,255,0.95);
+            -webkit-backdrop-filter: blur(3px);
+            backdrop-filter: blur(3px);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+        nav {
+            padding: 10px clamp(20px, 6vw, 160px); /* keeps your desktop spacing, but responsive */
+            display: flex;
+            align-items: center;
+        }
+
+        /* Outer UL is used as main layout container */
+        nav > ul {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        a { color: #000000; text-decoration: none; }
+        ul { list-style-type: none; margin: 0; padding: 0; display: flex; align-items: center; }
+
+        .hydro { font-size: 25px; padding-top: 10px; font-weight: 500; }
+        .hydro:hover { color: black; }
+
+        /* your nav links (nested ul) */
+        .lists { margin-left: clamp(10px, 4vw, 70px); gap: clamp(10px, 2.5vw, 50px); }
+        .lists li { margin-left: 0; padding-top: 15px; font-size: 15px; }
+
+        /* icons area: push to right */
+        .icons { margin-left: auto; }
+        .icons ul { display:flex; gap: 14px; margin: 0; padding: 0; }
+        .icons li { margin-left: 0; padding-top: 15px; font-size: 15px; }
+
+        .join { margin-top: 10px; }
+        .signup {
+            border-radius: 40px;
+            background-color: #cd1f1f;
+            color: #ffffff;
+            text-align: center;
+            margin-left: 30px;
+            padding: 18px 30px;
+            display: inline-block;
+        }
+        .signup:hover { background-color: #000000; color:#fff; }
+
+        /* ========== MAIN HERO ========== */
+        .mainpage{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+            color: #ffffff;
+            /* keep your gradient + hero photo (removed the "transparent" override) */
+            background-image: linear-gradient(#007cf9, #51ff00be), url('https://st2.depositphotos.com/5703916/8358/i/450/depositphotos_83586832-stock-photo-a-cup-of-coffee-laptop.jpg');
+            background-size: cover;
+            background-position: center;
+            padding: clamp(60px, 12vw, 200px) clamp(20px, 6vw, 160px) 120px;
+            min-height: 420px;
+        }
+        .content {
+            /* behave responsively */
+            flex: 1 1 520px;
+            margin: 0;
+            padding: 60px 20px 40px 0;
+        }
+        .heading { font-size: clamp(28px, 5vw, 50px); margin: 0 0 18px 0; line-height: 1.05; }
+
+        .boxes{ display:flex; column-gap: 20px; flex-wrap:wrap; }
+        .startbutton{
+            border-radius: 40px;
+            background-color: transparent;
+            border: 1px solid white;
+            color: #ffffff;
+            text-align: center;
+            padding: 18px 30px;
+            display:inline-block;
+        }
+        .startbutton:hover{ background-color: #cd1f1f; color:#fff; border: none; }
+        .call{ margin-top: 8px; font-size: 15px; font-weight: 500; }
+
+        .youtubevideo {
+            flex: 0 0 560px;
+            max-width: 100%;
+            margin-left: 0;
+        }
+        .youtubevideo iframe {
+            width: 100%;
+            height: 315px; /* default desktop height */
+            display: block;
+            border: 0;
+        }
+
+        /* ========== INTRO (about) ========== */
+        .intropage{
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+            padding: 40px clamp(20px, 6vw, 160px);
+            background: transparent;
+        }
+        .block1 { flex: 1 1 320px; padding: 40px; margin-left: 0; }
+        .introduce { font-size: 30px; margin: 0 0 4px 0; }
+        .dots { font-size: 40px; color: rgb(193, 188, 188); margin: 0 5px; }
+
+        .block2 { flex: 1 1 320px; padding: 50px; margin-top: 0; font-size: small; font-weight: 540; }
+        .line1, .line2, .line3, .line4 { border: solid 1.5px black; width: auto; max-width: 170px; margin-right: 0; display:block; }
+        .line2, .line4 { border-width: 2px; }
+
+        .skill { margin-left: 0; }
+        .skills { margin-left: 0; }
+
+        .man {
+            width: 375px;
+            height: auto;
+            max-width: 100%;
+            margin-top: 50px;
+            margin-left: 50px;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ========== BLOG ========== */
+        .blog {
+            padding: 50px 5% 100px;
+            background-color: #f5f5f5;
+        }
+        .blogtitile {
+            font-size: xx-large;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .blogdot {
+            display:block;
+            margin: 8px auto 20px auto;
+            text-align:center;
+            font-size: 40px;
+            color: rgb(193, 188, 188);
+        }
+
+        .bloggrid {
+           display: grid;
+    grid-template-columns: repeat(2, 1fr); /* two cards per row */
+    row-gap: 40px;
+    column-gap: 30px;
+    margin: 20px 0 0 0;
+        }
+
+        .fashion{
+            display: flex;
+            width: 100%;
+            align-items: stretch;
+            background: transparent;
+        }
+        .image {
+            width: 250px;
+            height: 350px;
+            object-fit: cover;
+            display: block;
+        }
+        .blogcontent {
+            padding: 30px;
+            background-color: #ffffff;
+            flex: 1 1 auto;
+            margin: 0;
+            display: block;
+        }
+        .timer { color: #db1f1f; font-size: small; font-weight: 500; }
+        .date { color: #db1f1f; font-size: small; font-weight: 500; }
+        .bloglink { text-decoration: none; font-size: x-large; color: black; }
+        .para { font-size: 15px; font-family: Arial, Helvetica, sans-serif; margin-bottom: 20px; }
+
+        .read {
+            padding: 15px 25px;
+            border-radius: 40px;
+            background-color: #f5f5f5;
+            text-decoration: none;
+            font-size: medium;
+            color: #000000;
+            display: inline-block;
+        }
+        .read:hover { background-image: linear-gradient(#0574fb, #00ff00); color: #ffffff; }
+
+        /* ========== WORK ========== */
+        .work {
+            font-size: xx-large;
+            text-align: center;
+            margin: 20px auto 0 auto;
+        }
+        .dot { font-size: 40px; color: rgb(193,188,188); margin: 12px auto; display:block; text-align:center; }
+
+        .workpage {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            padding: 10px 5% 100px;
+            gap: 30px;
+        }
+        .workblock { height: 250px; width: 250px; border: 1px solid black; }
+        .workimg { height: 250px; width: 250px; object-fit: cover; display:block; }
+        .working:hover { border: #cd1f1f dotted 2px; }
+
+        /* ========== CONTACT ========== */
+
+        .details input,
+.details select,
+.details textarea {
+    width: 100%; /* full width of parent container */
+    max-width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 12px;
+    border: none;
+    font-size: 15px;
+    box-sizing: border-box;
+}
+        .contact {
+            background-image: linear-gradient(#007cf9, #51ff00be);
+            background-size: cover;
+            padding: 50px 0px;
+            color: white;
+        }
+        .contactus {
+            text-align: center;
+            font-size: xx-large;
+            margin: 0 auto 12px auto;
+        }
+        .contactpage {
+            display:flex;
+            flex-wrap:wrap;
+            justify-content:center;
+            gap: 30px;
+            padding: 10px clamp(20px, 6vw, 160px);
+        }
+        .details {
+            /* preserve your width on desktop, but allow shrink on small screens */
+            width: 500px;
+            max-width: 100%;
+            display: block;
+        }
+
+        input, select {
+            height: 55px;
+            width: 350px;
+            max-width: 100%;
+            border-radius: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+            border: none;
+            padding: 0 12px;
+        }
+        textarea {
+            height: 120px;
+            width: 720px;
+            max-width: 100%;
+            border-radius: 10px;
+            margin-left: 10px;
+            margin-top: 10px;
+            color: #0000008a;
+            padding: 10px;
+        }
+        select { width: 355px; color: #0000008a; max-width:100%; }
+
+        .message {
+            border-radius: 40px;
+            background-color: #cd1f1f;
+            border: none;
+            color: #ffffff;
+            text-align: center;
+            width: 200px;
+            margin: 10px 10px;
+            padding: 18px 5px;
+            display: inline-block;
+        }
+        .message button {
+            background-color: transparent;
+            border: none;
+            color: #ffffff;
+            font-size: medium;
+            cursor: pointer;
+        }
+
+        /* keep your circular map as provided */
+        .map {
+            height: 300px;
+            width: 300px;
+            border-radius: 50%;
+            margin-left: 200px;
+            display: block;
+            border: 0;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer { background-color: #212020; color: #f8f8f8; }
+        .foot {
+            color: #f8f8f8;
+            padding: 100px clamp(20px, 6vw, 180px);
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        .foot a { color: #fefdfd; }
+        ol li { color: #fefdfddc; list-style-type: none; margin-top: 5px; padding-top: 5px; }
+        .footline { border: 0.01px solid #f5f5f547; }
+        .foot2 { margin-left: 50px; }
+        .headings { font-size: xx-large; margin-bottom: 0px; }
+        .footer2 { color: whitesmoke; margin: 5px clamp(10px, 6vw, 200px); padding-bottom: 50px; text-align:center; }
+        .bottomcall { margin-left: 350px; }
+        .bottomicon { margin-left: 20px; color: #ffffff; }
+        .bottomicons { margin-left: 150px; }
+
+        /* ========== GLOBAL IMAGE / iframe / input behavior ========== */
+        img, iframe { max-width: 100%; height: auto; display: block; } /* ensures images scale, keeps your circular map because .map has fixed width & border-radius */
+
+        /* ========== RESPONSIVE BREAKPOINTS ========== */
+
+        /* Large laptops -> reduce huge paddings */
+        @media (max-width: 1200px) {
+            nav { padding: 10px clamp(16px, 5vw, 110px); }
+            .mainpage { padding: clamp(45px, 10vw, 140px) clamp(16px, 5vw, 110px) 80px; }
+            .content { padding: 48px 18px 32px 0; }
+            .youtubevideo iframe { height: 300px; }
+            .man { width: 320px; margin-left: 30px; }
+            .map { margin-left: 120px; width: 260px; height: 260px; }
+            .details { width: 460px; }
+            input, select { width: 320px; }
+            textarea { width: 100%; max-width: 680px; }
+            .bloggrid { column-gap: 24px; }
+        }
+
+        /* Tablets & small desktops: stack hero, content center, blog -> single column */
+        @media (max-width: 992px) {
+            nav > ul { align-items: center; gap: 6px; }
+            .lists { margin-left: 16px; gap: 14px; flex-wrap:wrap; justify-content:center; }
+            .icons { margin-left: 0; order: 3; }
+            .join { order: 4; margin-left: 0; }
+            .mainpage { flex-direction: column; text-align: center; padding-top: 100px; }
+            .content { padding: 40px 12px 20px; order: 1; }
+            .youtubevideo { order: 2; margin: 0 auto; width: 100%; max-width: 720px; }
+            .youtubevideo iframe { height: 260px; }
+            .intropage { flex-direction: column; padding: 30px 20px; text-align: center; }
+            .block1, .block2 { padding: 20px; margin: 0; }
+            .man { margin: 16px auto; }
+            /* Blog: make each card vertical */
+            .fashion { flex-direction: column; }
+            .image { width:100%; height: auto; }
+            .blogcontent { padding: 18px; }
+            /* Work and contact stack */
+            .workpage { padding: 20px 18px 40px; gap: 20px; }
+            .workimg { width: 100%; max-width: 320px; height: auto; }
+            .contactpage { flex-direction: column; padding: 12px 20px; }
+            .details { width: 100%; margin-right: 0; }
+            input, select, textarea { margin-left: 0; width: 100%; max-width: 100%; }
+            .map { margin-left: 0; width: 260px; height: 260px; margin: 12px auto 0 auto; }
+            .foot { padding: 60px 20px; }
+            .bottomcall, .bottomicons { margin-left: 0; display:block; text-align:center; }
+        }
+
+        /* Small phones */
+        @media (max-width: 576px) {
+            nav { padding: 8px 12px; }
+            nav > ul { flex-direction: column; gap: 8px; align-items:center; }
+            .hydro { align-self: center; }
+            .lists { margin-left: 0; gap: 10px; justify-content:center; }
+            .join { margin: 8px 0; }
+            .heading { font-size: 22px; }
+            .youtubevideo iframe { height: 200px; }
+            .boxes { flex-direction: column; gap: 10px; align-items:center; }
+            .bloglink { font-size: 18px; }
+            .read { padding: 10px 15px; font-size: 14px; }
+            .man { width: 90%; margin: 12px auto; }
+            .workimg { max-width: 90%; height: auto; }
+            .map { width: 200px; height: 200px; margin-left: 0; border-radius: 50%; }
+            body { padding-top: 90px; } /* more height for stacked nav */
+        }
+
+    </style>
+</head>
+
+<body>
+   <!-- HEADEAR TAG  STARTED-->
+     <header class="header">
+        <nav>
+            <ul>
+                <li class="hydro"><a class="hydro" href="./HydroProject.html">Hydro</a></li>
+                <li>
+                    <ul class="lists">
+                         <li><a href="#home">Home</a></li>
+                         <li><a href="#about">About</a></li>
+                         <li><a href="#blog">Blog</a></li>
+                         <li><a href="#ourwork">Our work</a></li>
+                         <li><a href="#contacts">Contacts</a></li>
+                    </ul>
+                </li>
+                <li class="icons">
+                    <ul>
+                        <li><a href=""><i class="fa-brands fa-square-facebook"></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-twitter"></i></a></li>
+                        <li><a href=""><i class="fa-brands fa-instagram"></i></a></li>
+                    </ul>
+                </li>
+               <li class="join" ><a class="signup" href="./account.html">Sign in/Join</a></li>
+
+            </ul>
+        </nav>
+    </header>
+    <!-- HEADEAR TAG  STARTED-->
+    <main>
+        <!-- MAIN PAGE STARTED -->
+        <section class="mainpage" id="home">
+            <div class="content">
+                <p class="heading">We make beautiful websites for all people.</p>
+                <div class="boxes">
+                    <a href="#about" class="startbutton"> start a project</a>
+                    <div class="call">CALL US (+66) 010-020-0340 <br> For any inquiry</div>
+                </div>
+            </div>
+            <div class="youtubevideo">
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/AqcjdkPMPJA?si=EPk2GiqE27Dp0z-H" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            </div>
+
+        </section>
+        <!--MAIN PAGE ENDED -->
+
+        <!-- INTRODUCE PAGE STARTED -->
+        <section class="intropage" id="about">
+            <div class="block1">
+                <p class="introduce">Let us introduce</p>
+                <i class="fa-solid fa-ellipsis  dots"></i>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br>sed do eiusmod tempor incididunt ut labore et dolore  <br>magna aliqua. Ut enim ad minim.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, <br> sed do eiusmod tempor.</p>
+            </div>
+             <div class="block2">
+                <p  class="introducecontent">Web Design  <span class="skill">85%</span></p>
+                <hr class= "line1"> <br>
+                <p  class="introducecontent">Photography <span class="skill">90%</span></p>
+                <hr class= "line2"> <br>
+                <p  class="introducecontent">Content Marketing <span class="skills">75%</span></p>
+                <hr class= "line3"> <br>
+                <p  class="introducecontent">CMS Admin  <span class="skill">70%</span></p>
+                <hr class= "line4"> <br>
+            </div>
+            <img class="man" src="https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?ga=GA1.1.1588497292.1748849934&semt=ais_hybrid&w=740" alt="">
+        </section>
+        <!-- INTRODUCE PAGE ENDED -->
+
+        <!--  BLOG PAGE STARTED-->
+        <section class="blog" id="blog">
+            <p class="blogtitile">Our Blog </p>
+            <i class="fa-solid fa-ellipsis  blogdot"></i>
+            <div class="bloggrid">
+                <div class="fashion">
+                    <a href="./blogpage.html">
+                        <div >
+                        <img  class="image"src="https://images.pexels.com/photos/4067125/pexels-photo-4067125.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="">
+                    </div>
+                    </a>
+                    <div class="blogcontent">
+                        <span class="material-symbols-outlined timer">schedule</span>
+                        <span class="date"> December 22, 2017 </span>
+                        <div>
+                            <a href="./blogpage.html" class="bloglink" >How To Find Out Beautiful Workspace.</a>
+                            <p class="para">Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
+                            <a class="read" href="./blogpage.html">Read article</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="fashion">
+                   <a href="./blogpage.html">
+                     <div >
+                    <img class="image" src="https://multisport.ph/wp-content/uploads/2017/08/rsz_drew-graham-317485-683x1024.jpg" alt="">
+                    </div>
+                   </a>
+                    <div class="blogcontent">
+                        <span class="material-symbols-outlined timer">schedule</span>
+                        <span class="date"> December 18, 2017</span> 
+                        <div>
+                            <a class="bloglink" href="./blogpage.html">woman sportwear.</a>
+                            <p class="para">Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
+                            <a   class="read" href="./blogpage.html">Read more</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="fashion">
+                   <a href="./blogpage.html">
+                     <div >
+                    <img class="image" src="https://optim.tildacdn.com/tild6162-3365-4637-b835-663366373034/-/format/webp/michael-frattaroli-2.jpg.webp" alt="">
+                    </div>
+                   </a>
+                    <div class="blogcontent">
+                        <span class="material-symbols-outlined timer">schedule</span>
+                        <span class="date"> December 14, 2017</span>
+                        <div>
+                            <a class="bloglink" href="./blogpage.html">new creative fashion.</a>
+                            <p class="para">Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
+                            <a class="read" href="./blogpage.html">Read article</a>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="fashion">
+                    <a href="./blogpage.html">
+                     <div ><img class="image" src="https://vamaind.com/wp-content/uploads/2017/12/9-1.jpg.webp" alt=""></div>
+                     </a>
+                    <div class="blogcontent">
+                        <span class="material-symbols-outlined timer">schedule</span>
+                        <span class="date"> December 10, 2017</span>
+                        <div>
+                            <a class="bloglink" href="./blogpage.html">minimalist design trend in 2018.</a>
+                            <p class="para">Lorem ipsum dolor sit consectetur adipiscing morbi venenatis.</p>
+                            <a class="read" href="./blogpage.html">View Details</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </section>
+        <!-- BLOG PAGE ENDED -->
+         <!-- WORK PAGE STARTED -->
+        <section id="ourwork">
+            <p class="work">Our Work </p>
+            <i class="fa-solid fa-ellipsis  dot"></i>
+            <div class="workpage">
+                <a  class="working" href=""><img class="workimg" src="https://r1turaj.github.io/images/work-image1.jpg" alt=""></a>
+                                <a  class="working"href=""><img  class="workimg" src="https://www.varunkalia.com/img/portfolio/img-9.jpg "alt=""></a>
+
+                <a class="working" href=""><img  class ="workimg " src="https://r1turaj.github.io/images/work-image3.jpg" alt=""></a>
+                <a  class="working"href=""><img  class="workimg" src="https://www.varunkalia.com/img/portfolio/img-9.jpg "alt=""></a>
+            </div>
+        </section>
+        <!-- WORK PAGE  STARTED-->
+
+         <!-- CONTACT PAGE STARTED -->
+        <section class="contact" id="contacts">
+            <p class="contactus">Contact us</p>
+            <i class="fa-solid fa-ellipsis  dot"></i>
+            <div class="contactpage">
+                <div class="details">
+                    <form action="">
+                        <input type="text" name="" class="form" placeholder="Full Name">
+                        <input type="text" name="" class="form" placeholder="Your Email"> <br>
+                        <input type="number" name="" class="form" placeholder="Your phone">
+                        <select placeholder="budget " name="" id=" ">
+                        <option>Budget Level</option>
+                        <option>$500 to $1,000</option>
+                        <option>$1,000 to $2,200</option>
+                        <option>$2,200 to $4,500</option>
+                        <option>$4,500 to $7,500</option>
+                        <option>$12,000 or more</option>
+                        </select > <br>
+                        <textarea name="" id="" placeholder="Your Requriments"></textarea>
+                    </form>
+                      <a href="" class="message" ><button type="submit">Send a message</button></a>
+                </div>
+                <div >
+                    <iframe class ="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3807.3028062566113!2d78.61087507493495!3d17.3972499834916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb9f42c5f68219%3A0xf259fcc5495643c1!2sDHL%20Supply%20Chain!5e0!3m2!1sen!2sin!4v1748611003874!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+        <!-- CONTACT PAGE ENDED -->
+    </main>
+    <footer  class ="footer" >
+        <section class="foot">
+            <div class="foot1">
+                <ol >
+                    <li class="headings">Hydro Company</li>
+                    <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit,</li>
+                    <li>sed do eiusmod tempor incididunt ut labore et dolore</li>
+                    <li>magna aliqua.</li>
+                </ol>
+            </div>
+            <div class="foot2">
+                <ol>
+                     <li class="headings">Company</li>
+                     <li> <a href="">About us  </a></li>
+                     <li> <a href="">join our team</a></li>
+                     <li><a href=""> Read Blog</a></li>
+                     <li><a href=""> Press</a></li>
+                </ol>
+            </div>
+            <div class="foot3">
+                <ol>
+                    <li class="headings">Services</li>
+                    <li><a href=""> Pricing </a> </li>
+                    <li><a href="">Documentation</a></li>
+                    <li> <a href="">Support</a></li>
+                </ol>
+            </div>
+            <div class="foot3">
+                <ol>
+                    <li class="headings">Find us</li>
+                    <li> 123 Grand Rama IX, </li>
+                    <li>Krung Thep Maha Nakhon 10400</li> 
+                </ol>
+            </div>
+        </section>
+        <section class="footer2">
+            <hr class="footline">
+            <p>Copyright ©️ 2017 Your Company <span class="bottomcall">Call us (+66) 010-020-0340</span> 
+                <span class="bottomicons" >
+                        <a class="bottomicon" href=""><i class="fa-brands fa-square-facebook"></i></a>
+                        <a class="bottomicon" href=""><i class="fa-brands fa-twitter"></i></a>
+                        <a class="bottomicon" href=""><i class="fa-brands fa-instagram"></i></a>
+                </span></p>
+            </section>
+    </footer>
+</body>
+</html>
